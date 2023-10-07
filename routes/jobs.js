@@ -32,7 +32,7 @@ router.post('/data/add-job',async(req,res)=>{
         }
        
         }catch(error){
-           res.send(error)
+           res.json({error})
         }
    
 })
