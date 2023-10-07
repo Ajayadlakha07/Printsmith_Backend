@@ -17,7 +17,6 @@ router.post('/data/add-job',async(req,res)=>{
         const {position, salary, job_description, location, experience} = req.body;
         
         const existingData = await Job.findOne({});
-        res.json({"name":"rahul"})
         if(existingData){
             existingData.JobDetails.push({position,salary,job_description,location,experience,date: Date.now()})
             const updatedData = await existingData.save();
