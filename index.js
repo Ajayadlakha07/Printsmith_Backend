@@ -12,5 +12,5 @@ app.use(express.json())
 app.use('/',require('./routes/jobs'))
 
 app.listen(port,()=>{
-    console.log(`you are listening at ${port}`)
+    // console.log(`you are listening at ${port}`)
 })
