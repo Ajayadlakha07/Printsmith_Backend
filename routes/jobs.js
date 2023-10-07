@@ -16,22 +16,20 @@ router.post('/data/add-job',async(req,res)=>{
     try {
         const {position, salary, job_description, location, experience} = req.body;
         
-        // const existingData = await Job.findOne({});
-        // if(existingData){
-        //     existingData.JobDetails.push({position,salary,job_description,location,experience,date: Date.now()})
-        //     const updatedData = await existingData.save();
-        //     res.json({ updatedData ,success:true});
-        // }else{
-        //     const newJob = new Job({
-        //         JobDetails:[{position,salary,job_description,location,experience,date: Date.now()}],
-        //         Admin:[{username:"admin@123",password:"infinity@123"}]
-        //     });
-        //     const postJob = await newJob.save()
-        //     res.json({"success":true,postJob})
+        const existingData = await Job.findOne({});
+        if(existingData){
+            existingData.JobDetails.push({position,salary,job_description,location,experience,date: Date.now()})
+            const updatedData = await existingData.save();
+            res.json({ updatedData ,success:true});
+        }else{
+            const newJob = new Job({
+                JobDetails:[{position,salary,job_description,location,experience,date: Date.now()}],
+                Admin:[{username:"admin@123",password:"infinity@123"}]
+            });
+            const postJob = await newJob.save()
+            res.json({"success":true,postJob})
 
-        // }
-        res.json({"name":"rahul"})
-       
+        }
         }catch(error){
            res.json({"error":error,"name":"rahul"})
         }
