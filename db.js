@@ -2,8 +2,10 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv');
 dotenv.config();
 
+const DB_URL = process.env.DB_URL
+
 const connectToMongo = () => {
-    mongoose.connect('mongodb+srv://internsinfinity:StGXTMW1ke1yDtWw@cluster0.2pudp0n.mongodb.net/Admin_data', {
+    mongoose.connect(DB_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true, 
     }).then(() => {
