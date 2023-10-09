@@ -18,7 +18,7 @@ router.post('/data/add-job',async(req,res)=>{
         
         const existingData = await Job.findOne({});
         if(existingData){
-            existingData.JobDetails.push({position,salary,job_description,location,experience,date: Date.now()})
+            existingData.JobDetails.unshift({position,salary,job_description,location,experience,date: Date.now()})
             const updatedData = await existingData.save();
             res.json({ updatedData ,success:true});
         }else{
