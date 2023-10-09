@@ -5,7 +5,7 @@ dotenv.config();
 const DataBase = process.env.DB_URL
 
 const connectToMongo = () => {
-    mongoose.connect('mongodb+srv://internsinfinity:admin@cluster0.d0lmv6v.mongodb.net/Admin_data', {
+    mongoose.connect('mongodb+srv://internsinfinity:F63XbnPqJFDtaAIO@cluster0.wfdirt2.mongodb.net/Admin_data', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     }).then(() => {

@@ -28,7 +28,6 @@ router.post('/data/add-job',async(req,res)=>{
             });
             const postJob = await newJob.save()
             res.json({"success":true,postJob})
-
         }
         }catch(error){
            res.json({"error":error,"name":"rahul"})
@@ -62,6 +61,5 @@ router.post('/auth/getuser',async(req,res)=>{
         res.json({error:error,mesage:"fetchUser error"}).status(500)
     }
 })
-
 
 module.exports = router
