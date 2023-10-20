@@ -1,13 +1,13 @@
 const express = require('express')
 const router = express.Router()
 const Job = require('../modals/Data')
+const axios = require('axios');
 
 router.get('/data/get-jobs',async(req,res)=>{
     try {
         const existingData = await Job.findOne({});
         res.json(existingData)
     } catch (error) {
-        console.log(error)
         res.send(error)
     }
 })
@@ -59,6 +59,38 @@ router.post('/auth/getuser',async(req,res)=>{
         res.send(user)
     } catch (error) {
         res.json({error:error,mesage:"fetchUser error"}).status(500)
+    }
+})
+
+router.post('/send-mail', async (req, res)=>{
+    try {
+        const {subject, body} = req.body;
+
+        
+        const url = 'https://api2.juvlon.com/v4/httpSendMail';
+
+        const data = {
+          ApiKey: 'OTc2NjUjIyMyMDIzLTEwLTE4IDE3OjE5OjAw',
+          requests: [
+            {
+              subject: subject,
+              from: 'web.developer@infinityadvt.com',
+              body: body,
+              to: 'interns.infinity@gmail.com',
+            },
+          ],
+        };
+        
+        axios
+          .post(url, data)
+          .then((response) => {
+            res.send(response.data);
+          })
+          .catch((error) => {
+            res.send(error);
+          });
+    } catch (error) {
+       res.send(error)
     }
 })
 
