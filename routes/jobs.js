@@ -18,10 +18,12 @@ router.post('/data/add-job',async(req,res)=>{
         
         const existingData = await Job.findOne({});
         if(existingData){
+            const jobId = generateUniqueJobId();
             existingData.JobDetails.unshift({position,salary,job_description,location,experience,date: Date.now()})
             const updatedData = await existingData.save();
             res.json({ updatedData ,success:true});
         }else{
+          const jobId = generateUniqueJobId();
             const newJob = new Job({
                 JobDetails:[{position,salary,job_description,location,experience,date: Date.now()}],
                 Admin:[{username:"admin@123",password:"infinity@123"}]
@@ -41,15 +43,13 @@ router.post('/auth',async(req,res)=>{
 
         const existingData = await Job.findOne({});
         if(existingData.Admin[0].username===username && existingData.Admin[0].password === password){
-            res.json({success:true})
+            res.json({success:true});
         }else{
-            res.json({success:false})
+            res.json({success:false});
         }
-       
         }catch(error){
            res.send(error)
         }
-   
 })
 
 router.post('/auth/getuser',async(req,res)=>{
@@ -94,4 +94,31 @@ router.post('/send-mail', async (req, res)=>{
     }
 })
 
-module.exports = router
+router.delete('/delete-job', async (req, res) => {
+  try {
+    const { jobId } = req.body; // The _id of the job to delete
+
+    const existingData = await Job.findOne({});
+    if (existingData) {
+      // Find the job detail to delete based on the provided _id
+      const jobIndexToDelete = existingData.JobDetails.findIndex(
+        (jobDetail) => jobDetail._id.toString() === jobId
+      );
+
+      if (jobIndexToDelete !== -1) {
+        // Remove the job detail from the JobDetails array
+        existingData.JobDetails.splice(jobIndexToDelete, 1);
+        const updatedData = await existingData.save();
+        res.json({ updatedData, success: true });
+      } else {
+        res.json({ success: false, message: 'Job not found' });
+      }
+    } else {
+      res.json({ success: false, message: 'Data not found' });
+    }
+  } catch (error) {
+    res.json({ error: error, name: 'rahul' });
+  } 
+});
+
+module.exports = router;

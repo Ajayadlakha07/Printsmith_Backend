@@ -3,6 +3,7 @@ const validator = require("validator")
 
 const jobSchema = mongoose.Schema({
      JobDetails: [{
+        jobId:Number,
         position: String,
         salary: Number,
         job_description: String,
