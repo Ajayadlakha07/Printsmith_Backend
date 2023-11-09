@@ -18,12 +18,10 @@ router.post('/data/add-job',async(req,res)=>{
         
         const existingData = await Job.findOne({});
         if(existingData){
-            const jobId = generateUniqueJobId();
             existingData.JobDetails.unshift({position,salary,job_description,location,experience,date: Date.now()})
             const updatedData = await existingData.save();
             res.json({ updatedData ,success:true});
         }else{
-          const jobId = generateUniqueJobId();
             const newJob = new Job({
                 JobDetails:[{position,salary,job_description,location,experience,date: Date.now()}],
                 Admin:[{username:"admin@123",password:"infinity@123"}]
